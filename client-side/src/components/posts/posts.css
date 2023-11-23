@@ -1,0 +1,13 @@
+#posts-layout{
+    /* border:  solid 1px red; */
+    display: flex;
+    flex: 9;
+    flex-wrap: wrap;
+  
+}
+@media screen  and (max-width:767px){
+    
+    #posts-layout{
+        flex: 6;
+    }
+}

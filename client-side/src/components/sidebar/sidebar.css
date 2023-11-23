@@ -1,0 +1,142 @@
+#sidebar{
+  /* border: solid 1px greenyellow; */
+  flex: 3.3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top:10px;
+  background-color:whitesmoke;
+  
+  margin-right: 10px;
+  padding-top: 10px;
+  height: fit-content;
+  overflow: hidden;
+}
+
+#catagory-list-sidebar{
+  list-style: none;
+  margin:25px;
+  margin-bottom: 0px;
+  /* border: solid 1px red; */
+
+ 
+  
+}
+.catagory-item-list{
+  font-family: 'Varela', sans-serif;
+  font-weight: 400;
+
+
+  display: inline-block;
+  width:30%;
+  margin-bottom: 25px;
+  text-align: start;
+  
+}
+.side-bar-item{
+  /* border: solid 1px red; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.side-bar-item > span{
+  width:159px;
+  color:rgb(24, 23, 23);
+  font-size: 21px;
+  font-family: 'Varela', sans-serif;
+  font-weight: 500;
+  border-top: solid 1px rgb(176, 156, 156);
+  border-bottom:solid 1px rgb(176, 156, 156);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-top: 3px;
+
+  
+
+}
+.side-bar-item > div >img{
+  margin-top: 15px;
+  width: 300px;
+  height: 312px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.side-bar-item > p{
+ align-items: center;
+ justify-content: center;
+ margin: 20px;
+ padding: 10px;
+ font-size: 16px;
+ font-weight: 300;
+ font-family:'Varela', sans-serif; ;
+}
+.icon-media-sidebar{
+  font-size: 30px;
+  margin: 30px;
+}
+#icon-list-sidebar{
+  display: flex;
+}
+@media screen and (max-width:767px) {
+  #sidebar{
+  margin-top:10px;
+  margin-right: 0px;
+  flex: 3;
+
+
+
+  }
+  .side-bar-item{
+    margin-bottom: 0px;
+  }
+  .side-bar-item > span{
+    width: 60px;
+    font-size: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    
+  }
+  .side-bar-item > div >img{
+    width: 100px;
+    height: 120px;
+    margin-top: 10px;
+  }
+  .side-bar-item > p{
+    /* border: solid 1px red; */
+    font-size: 8px;
+    margin: 0px;
+    width: 100px;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp:4;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    padding: 2px;
+
+
+  }#catagory-list-sidebar{
+    margin: 0px;
+    /* border: solid 1px green; */
+    width: 100px;
+
+  }
+  .catagory-item-list{
+    padding: 0px;
+    font-size: 8px;
+    width: 50%;
+    margin-bottom: 8px;
+    
+
+  }
+  .icon-media-sidebar{
+    font-size: 10px;
+    margin: 10px;
+  }
+
+
+  
+} 

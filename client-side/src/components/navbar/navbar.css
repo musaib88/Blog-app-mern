@@ -1,0 +1,133 @@
+#nav-bar-blog-top{
+    width: 100%;
+    height: 65px;
+    background-color:whitesmoke;
+    display: flex;
+    position: sticky;
+    top: 0%;
+    align-items: center;
+    justify-content:space-around;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    z-index: 5;
+}
+.navleft{
+    /* border: solid 1px red; */
+/* flex: 3; */
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+.icon-media{
+    font-size: 25px;
+    margin-right:10px;
+    color:grey;
+    cursor: pointer;
+}
+.nav-mid-list{
+    /* border: solid 1px red; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0%;
+    padding: 0%;
+}
+.nav-mid-items{
+    
+list-style: none;
+font-size:20px;
+font-weight: 400;
+font-family:'Josefin Sans', sans-serif; ;
+margin-right: 20px;
+cursor: pointer;
+}
+.nav-right{
+/* border: solid 1px yellowgreen; */
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+.profile-logo{
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.right-nav-icons{
+    margin-right: 10px;
+
+    font-size: 25px;
+    color: gray;
+    cursor: pointer;
+    
+}
+.right-nav-cross-icon{
+    margin-right: 10px;
+
+    font-size: 29.5px;
+    color: gray;
+    cursor: pointer;
+
+}
+
+#mobile-mid-nav{
+    position: absolute;
+    height: 300px; 
+    width: 100%;
+    overflow: hidden;
+    transition: height 0.9s ease-in-out;
+
+
+    
+}
+.menu-mob {
+ display: none;     
+    }
+#mobile-mid-nav-hide{
+ 
+ height: 0px;
+ overflow: hidden;
+}
+.nav-mid-list-mobile{
+    background-color:whitesmoke;
+    display:flex;
+    flex-direction: column;
+    align-items:flex-end;
+    list-style: none;
+    z-index: 2;
+    
+
+}
+.nav-mid-items-mobile{
+    width: 90%;
+    height: 20px;
+    margin-right:8%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    background-color:whitesmoke;
+    text-align:end;
+    padding-right:20px;
+    border-radius: 5px;
+    font-style: 18px;
+    font-family:'Courier New', Courier, monospace;
+    cursor: pointer;
+    z-index: inherit;
+    
+}
+@media screen  and (max-width:767px){
+    .nav-mid-list{
+        display: none;
+    }
+    .menu-mob {
+       display:block
+        
+       }
+   
+    
+}
