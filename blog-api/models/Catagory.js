@@ -1,6 +1,6 @@
 const mongoose=require('mongoose')
 const CatagorySchema= new mongoose.Schema({
-   catogoryName:{
+   catagoryName:{
     type:String,
     required:true
    }

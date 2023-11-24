@@ -107,5 +107,42 @@ router.get("/get/:id",async(req,res)=>{
 
 })
 // get all
+router.get("/find",async (req,res)=>{
+    const {user,catagory}=req.query;
+    try {
+        let posts= await Post.find();
+        if(user){
+            try {
+               const  userPosts=posts.filter(post=>post.userName===user)
+            res.status(200).json(userPosts);
+                
+            } catch (error) {
+                res.status(400).json("No results found ")
+                
+            }
+            
+        }
+        else if (catagory){
+            try {
+                const catagoryPosts=posts.filter(post=>post.catagories.includes(catagory))
+
+                res.status(200).json(catagoryPosts)
+                
+            } catch (error) {
+                
+                res.status(400).json("did not find anything")
+
+            }
+        }
+        else {
+
+            res.status(200).json(posts)
+        }
+        
+    } catch (error) {
+        res.status(400).json("oops somthing went wrong")
+        
+    }
+  })
 
 module.exports=router;
