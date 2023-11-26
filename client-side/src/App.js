@@ -23,7 +23,7 @@ function App() {
             element={<Home />}
           />
           <Route
-            path='/single/:postId'
+            path='/post/:postId'
             element={<Single />}
           />
           <Route

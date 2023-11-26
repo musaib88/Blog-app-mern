@@ -75,3 +75,26 @@
     border: none;
     outline:none;
 }
+.eye-pass{
+    /* border:  solid 1px green; */
+
+    font-size: 30px;
+    margin-bottom: 30px;
+
+}
+#show-pass{
+    /* border:  solid 1px red; */
+    position: absolute;
+    left: 80%;
+    bottom: 150%;
+    padding: 15px;
+    
+}
+#reg-pop{
+    /* background-color:wheat; */
+    padding: 20px;
+    color: green;
+    font-size: 23px;
+    font-family: 'lora';
+    font-weight: 600;
+}

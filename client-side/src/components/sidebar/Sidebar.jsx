@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./sidebar.css";
+import axios from "axios"
+import { Link } from "react-router-dom";
+const baseURL = "http://localhost:5000/api/";
+
 
 export default function Sidebar() {
+  const [cats,setCats]=useState([])
+     useEffect(()=>{
+          const fetchCats=async()=>{
+            try {
+            const response=await axios.get('/catagory/find',{baseURL})
+            setCats(response.data)
+            // console.log(cats)
+              
+            } catch (error) {
+              console.log(error)
+              
+            }
+          }
+          fetchCats()
+     },[cats])
   return (
     <div id='sidebar'>
       <div className="side-bar-item">
@@ -15,12 +34,11 @@ export default function Sidebar() {
         <span> Catagories </span>
         
          <ul id="catagory-list-sidebar">
-          <li className="catagory-item-list">Fashion</li>
-          <li className="catagory-item-list" >Travel</li>
-          <li className="catagory-item-list">Food</li>
-          <li className="catagory-item-list" >Tech</li>
-          <li  className="catagory-item-list">Stocks</li>
-          <li className="catagory-item-list">Crypto</li>
+          { cats.map((cat)=>(
+         <li className="catagory-item-list"><Link to={`/?catagory=${cat.catagoryName}`} className="link"> {cat.catagoryName}</Link></li>
+          
+          ))}
+          
 
          </ul>
       </div>

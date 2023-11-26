@@ -6,6 +6,12 @@ const authroute=require('./routes/auth')
 const userroute=require('./routes/users')
 const postroute=require('./routes/posts')
 const catroute=require('./routes/catagories')
+const multer=require('multer')
+const path=require('path')
+const cors = require('cors');
+const allowedOrigins = ['http://localhost:3000'];
+
+
 dotenv.config()
 app.use(express.json())
 
@@ -13,11 +19,35 @@ mongoose.connect(process.env.MONGO_URL ).then(console.log("hey bab boy")).catch(
     console.log("somthing went wrong",err)
 });
 
+const storage=multer.diskStorage({
+    destination:function(req,file,cb){
+    cb(null,'images')
+    },
+    filename:function(req,file,cb){
+        cb(null,file.fieldname + '-' + Date.now() +  path.extname(file.originalname))
+    }
 
+}) 
+const upload = multer({ storage: storage });
+app.post("/api/upload",upload.single('file'),async(req,res)=>{
+    res.status(200).json("file uploaded successfully")
+})
 
 // app.use("/mussi",(req,res)=>{
 //     console.log("hey mussi i am listening")
 // })
+app.use(
+    cors({
+      origin: function (origin, callback) {
+        // Check if the request origin is in the list of allowed origins
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+    })
+  );
 app.use("/api/auth",authroute);
 app.use("/api/user",userroute);
 app.use("/api/post",postroute);

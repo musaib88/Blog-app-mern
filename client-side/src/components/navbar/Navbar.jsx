@@ -44,9 +44,9 @@ export default function Navbar() {
          <div> <img src="https://picsum.photos/536/354" alt="" className='profile-logo' /></div> 
          </Link>
 
-        <div><i class=" right-nav-icons fa-solid fa-magnifying-glass"></i></div>
+        <div><i className=" right-nav-icons fa-solid fa-magnifying-glass"></i></div>
         <div className='menu-mob'  >{menu?
-        <i class="fa-solid fa-xmark right-nav-cross-icon" onClick={showMobileMenu}></i>:<i class="menu-bar-mobile right-nav-icons fa-solid fa-bars" onClick={showMobileMenu}></i>}
+        <i className="fa-solid fa-xmark right-nav-cross-icon" onClick={showMobileMenu}></i>:<i className="menu-bar-mobile right-nav-icons fa-solid fa-bars" onClick={showMobileMenu}></i>}
       </div>
       </div>
 

@@ -29,6 +29,22 @@
    left: 90%;
 
 
+
+}
+.eye-pass{
+    /* border:  solid 1px green; */
+
+    font-size: 30px;
+    margin-bottom: 30px;
+
+}
+#show-pass{
+    /* border:  solid 1px red; */
+    position: absolute;
+    left: 80%;
+    bottom: 150%;
+    padding: 15px;
+    
 }
 
 .login-form-layout-div{

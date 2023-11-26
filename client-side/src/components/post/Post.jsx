@@ -1,34 +1,28 @@
 import "./post.css";
 import { Link } from "react-router-dom";
 
-export default function Post() {
-  return ( <Link  to='./single/:postId' className="link">
+export default function Post({post}) {
+  return ( <Link  to={`/post/${post._id}`} className="link">
     <div id='post-layout'>
+      {post.photo &&
       <div id='post-img-layout'>
         <img
-          src='https://picsum.photos/536/354'
+          src={post.photo}
           alt=''
           id='post-img'
         />
-      </div>
+      </div>}
       <div id='post-details'>
-        <span id='post-catagory'>Tech</span>
-        <span id='post-date'> created on : 13/12/1996</span>
+         { post.catagories.map((cat)=>(
+          <span id='post-catagory'>{cat}</span>
+         ))
+        }
+        <span id='post-date'> Posted on : {post. createdAt.slice(0,10)  }</span>
       </div>
 
-       <span id='post-title'>  Unemploymet in IT sector </span>
+       <span id='post-title'>  {post.title} </span>
       <p id='post-desc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-        minus repudiandae vel beatae explicabo corrupti quis odio quas, earum
-        accusantium! Corporis, dolorum id. Hic in cum recusandae dolorem commodi
-        accusamus esse rem eos doloremque quia Lorem ipsum dolor, sit amet
-        consectetur adipisicing elit. Illum voluptate minima non corporis culpa,
-        quae necessitatibus, nulla excepturi, at deserunt aliquam omnis ratione
-        itaque doloribus enim ullam amet eos! Voluptas! Lorem ipsum dolor, sit
-        amet consectetur adipisicing elit. Dolorum, voluptatibus quisquam
-        corrupti, placeat mollitia nemo delectus aliquam atque perferendis, a
-        nesciunt fugiat. Tempora, aliquam cumque temporibus tenetur deserunt
-        minima aperiam.
+        {post.desc}
       </p>
     </div>
     </Link>

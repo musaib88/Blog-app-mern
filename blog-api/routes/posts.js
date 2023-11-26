@@ -95,12 +95,12 @@ router.delete("/delete/:id",verifyToken,async (req,res)=>{
 // get one post
 router.get("/get/:id",async(req,res)=>{
     try {
-    const post= await Post.findById(req.params.id)
+    const post= await Post.findOne({_id :req.params.id})
     res.status(200).json(post);
 
         
     } catch (error) {
-        res.status.status(404).json("post not found")
+        res.status(404).json("post not found")
         
     }
 

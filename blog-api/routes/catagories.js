@@ -18,10 +18,11 @@ router.post("/add",verifyToken,async (req,res)=>{
     }
 })
 // get all
-router.post("/find",verifyToken,async (req,res)=>{
+router.get("/find",async (req,res)=>{
     try {
          const catagories= await Catagory.find()
           res.status(200).json(catagories);
+          console.log(catagories)
 
     } 
     catch (error) {
