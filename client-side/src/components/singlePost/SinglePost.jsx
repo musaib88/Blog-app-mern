@@ -15,14 +15,14 @@ export default function SinglePost() {
       try {
         const singlePost = await axios.get(`/post/get/${path}`, { baseURL });
         console.log(singlePost);
-        setMyPost(singlePost.data);
+         setMyPost(singlePost.data)
       } catch (error) {
         console.log(error);
       }
     };
     fetchPost();
   }, [path]);
-
+  console.log(myPost)
   const user = false;
   return (
     <div id='single-post'>
@@ -48,13 +48,12 @@ export default function SinglePost() {
                 {cat}
               </span>
             ))}
-
-          <span id='single-post-date'>created on : {myPost.createdAt.split("T")[0]}</span>
+          <span id='single-post-date'>created on : {  myPost.createdAt?.split("T")[0]} </span>
           {user ? (
             <div id='single-post-icons'>
               {" "}
-              <i class='fa-solid fa-pen-to-square edit-blog'></i>
-              <i class='fa-solid fa-trash delete-blog'></i>
+              <i className='fa-solid fa-pen-to-square edit-blog'></i>
+              <i className='fa-solid fa-trash delete-blog'></i>
             </div>
           ) : (
             ""

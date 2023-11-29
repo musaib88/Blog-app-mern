@@ -20,7 +20,7 @@ export default function Register() {
 
 
   const handleSubmit= async(e)=>{
-  console.log(formData)
+  // console.log(formData)
 
     e.preventDefault()
     try {

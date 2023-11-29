@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+// const express=require('express')
+// const router=express.Router();
 
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
@@ -19,5 +21,7 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
+
+// router.get('')
 
 module.exports = verifyToken;

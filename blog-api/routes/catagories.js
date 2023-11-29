@@ -22,7 +22,7 @@ router.get("/find",async (req,res)=>{
     try {
          const catagories= await Catagory.find()
           res.status(200).json(catagories);
-          console.log(catagories)
+        //   console.log(catagories)
 
     } 
     catch (error) {

@@ -6,21 +6,30 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import './home.css'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+// const jtoken=require('jsonwebtoken')
 const baseURL = 'http://localhost:5000/api/';
-
+const token = localStorage.getItem("token");
+if(token){
+  console.log("logged in ", token)
+}
 
 export default function Home() {
+ 
+  
+
+
+
+
+
   const location=useLocation()
   // console.log(location.search.split("=")[0])
-  const usr=location.search.split("=")[0].slice(1)
+  const usr=location.search?.split("=")[0].slice(1)
 
-  const qr=location.search.split("=")[1]
+  const qr=location.search?.split("=")[1]
 
    const [posts,setPosts]=useState([])
-   const [query,setQuery]=useState("")
      useEffect(()=>{
       const fetchPosts= async ()=>{
-        setQuery(qr)
         let response;
         try{
           if(usr==="user"){
@@ -49,11 +58,11 @@ export default function Home() {
           }
       }
       fetchPosts();
-     },[location])
+     },[location,qr,usr,])
      
   return (
     <>
-    <Navbar></Navbar>
+    <Navbar ></Navbar>
     <Header></Header>
     <div id='feed'>
       <Posts posts={posts}></Posts >

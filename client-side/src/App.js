@@ -4,15 +4,17 @@ import Register from "./pages/register/Register";
 
 import Login from "./pages/login/Login";
 
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Single from "./pages/Single/Single";
 import Settings from "./pages/settings/Settings";
 import Write from "./pages/write/Write";
+import { useSelector} from "react-redux/es/hooks/useSelector";
 
 function App() {
-  const user =false;
+  
+const user=useSelector((state)=>state.user.user)
+
   return (
     <>
       <BrowserRouter>
@@ -20,7 +22,7 @@ function App() {
           <Route
             exact
             path='/'
-            element={<Home />}
+            element={<Home user={user}/>}
           />
           <Route
             path='/post/:postId'
