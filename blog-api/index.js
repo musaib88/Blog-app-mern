@@ -9,8 +9,21 @@ const catroute=require('./routes/catagories')
 const multer=require('multer')
 const path=require('path')
 const cors = require('cors');
+const { fileURLToPath } = require('url');
 const allowedOrigins = ['http://localhost:3000'];
 
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Check if the request origin is in the list of allowed origins
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  })
+);
 
 dotenv.config()
 app.use(express.json())
@@ -30,7 +43,16 @@ const storage=multer.diskStorage({
 }) 
 const upload = multer({ storage: storage });
 app.post("/api/upload",upload.single('file'),async(req,res)=>{
-    res.status(200).json("file uploaded successfully")
+       console.log(req.file)
+
+   try {
+    
+    res.status(200).json(`http://localhost:5000/images/${req.file.filename}`)
+
+   } catch (error) {
+    console.log("somthing missing from file")
+    
+   }
 })
 
 // app.use("/mussi",(req,res)=>{
@@ -48,6 +70,7 @@ app.use(
       },
     })
   );
+  app.use('/images', express.static('images'));
 app.use("/api/auth",authroute);
 app.use("/api/user",userroute);
 app.use("/api/post",postroute);

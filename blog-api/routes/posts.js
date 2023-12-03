@@ -6,8 +6,11 @@ const User=require('../models/User')
 
 // create post
 router.post("/write",verifyToken, async(req,res)=>{
+     console.log("in handle")
     try {
        const user= await User.findById(req.userId)
+       console.log(user)
+         
 
         const post= await new Post({
             title:req.body.title ,
@@ -17,8 +20,11 @@ router.post("/write",verifyToken, async(req,res)=>{
             
             
         }).save()
+        console.log(post)   
         
         res.status(200).json(post)
+        console.log(req.body.photo)
+
         
     } catch (error) {
         res.status(400).json("post unsuccessful")

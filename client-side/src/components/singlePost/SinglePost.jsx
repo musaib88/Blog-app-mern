@@ -3,9 +3,12 @@ import "./singlepost.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux"; 
 const baseURL = "http://localhost:5000/api/";
 
+
 export default function SinglePost() {
+  const user=useSelector((state)=>state.user.user)
   const location = useLocation("");
   const [myPost, setMyPost] = useState({});
   // console.log(location.pathname.slice(6))
@@ -23,7 +26,6 @@ export default function SinglePost() {
     fetchPost();
   }, [path]);
   console.log(myPost)
-  const user = false;
   return (
     <div id='single-post'>
       <div id='single-post-title-layout'>
