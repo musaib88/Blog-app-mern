@@ -24,8 +24,11 @@ console.log("my user is",user)
         const res= await axios.get("/auth/verify",{headers:{
           "Authorization": "bearer " + savedToken
         },baseURL})
-        if(res?.data==='valid user'){
-         dispatch(setUser())        
+        if(res?.data.message==='valid user'){
+          const usrname=res?.data?.user.user?.userName;
+          console.log(usrname)
+         dispatch(setUser(usrname))        
+         console.log(res.data)
       } 
       
     }

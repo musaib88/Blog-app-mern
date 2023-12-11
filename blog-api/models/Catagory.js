@@ -3,7 +3,7 @@ const CatagorySchema= new mongoose.Schema({
    catagoryName:{
     type:String,
     required:true
-   }
+   },
 },
 {timestamps:true}
 

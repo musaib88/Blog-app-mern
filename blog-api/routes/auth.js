@@ -34,6 +34,8 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({
       userName: req.body.userName,
     });
+  console.log("hello")
+
     if (!user) {
       return res.status(400).json("Invalid username or Password");
     }
@@ -56,16 +58,12 @@ router.post("/login", async (req, res) => {
 //  client token verify singly
 
  router.get("/verify",verifyToken,async (req,res)=>{
-      console.log("hii")
+    const user= await User.findById(req.userId)
+    console.log(user)
+    const data={message:"valid user",user:{user}}
   
-    // try {
-    //     const res=verifyToken(req,res,next)
-    //     res.status(200).json(res)
-  
-    // } catch (error) {
-    //   res.status(400).json("somthing went wrong ")
-    // }
-   res.status(200).json("valid user")
+    
+   res.status(200).json(data)
 
  })
 

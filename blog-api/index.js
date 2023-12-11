@@ -6,10 +6,8 @@ const authroute=require('./routes/auth')
 const userroute=require('./routes/users')
 const postroute=require('./routes/posts')
 const catroute=require('./routes/catagories')
-const multer=require('multer')
-const path=require('path')
+// const multer=require('multer')
 const cors = require('cors');
-const { fileURLToPath } = require('url');
 const allowedOrigins = ['http://localhost:3000'];
 
 app.use(
@@ -32,28 +30,28 @@ mongoose.connect(process.env.MONGO_URL ).then(console.log("hey bab boy")).catch(
     console.log("somthing went wrong",err)
 });
 
-const storage=multer.diskStorage({
-    destination:function(req,file,cb){
-    cb(null,'images')
-    },
-    filename:function(req,file,cb){
-        cb(null,file.fieldname + '-' + Date.now() +  path.extname(file.originalname))
-    }
+// const storage=multer.diskStorage({
+//     destination:function(req,file,cb){
+//     cb(null,'images')
+//     },
+//     filename:function(req,file,cb){
+//         cb(null,file.fieldname + '-' + Date.now() +  path.extname(file.originalname))
+//     }
 
-}) 
-const upload = multer({ storage: storage });
-app.post("/api/upload",upload.single('file'),async(req,res)=>{
-       console.log(req.file)
+// }) 
+// const upload = multer({ storage: storage });
+// app.post("/api/upload",upload.single('file'),async(req,res)=>{
+//        console.log(req.file)
 
-   try {
+//    try {
     
-    res.status(200).json(`http://localhost:5000/images/${req.file.filename}`)
+//     res.status(200).json(`http://localhost:5000/images/${req.file.filename}`)
 
-   } catch (error) {
-    console.log("somthing missing from file")
+//    } catch (error) {
+//     console.log("somthing missing from file")
     
-   }
-})
+//    }
+// })
 
 // app.use("/mussi",(req,res)=>{
 //     console.log("hey mussi i am listening")
