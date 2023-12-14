@@ -11,7 +11,8 @@ const token = localStorage.getItem("token");
 export default function SinglePost() {
 
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.userName);
+  const user = useSelector((state) => state.user.userData);
+     console.log(`hello${user.userName}`)
   const location = useLocation();
   const [myPost, setMyPost] = useState({});
   const path = location.pathname.slice(6);
@@ -220,7 +221,7 @@ export default function SinglePost() {
               <span id='single-post-date'>
                 created on : {myPost.createdAt?.split("T")[0]}{" "}
               </span>
-              {user === myPost.userName ? (
+              {user.userName=== myPost.userName ? (
                 <div id='single-post-icons'>
                   <i
                     className='fa-solid fa-pen-to-square edit-blog'

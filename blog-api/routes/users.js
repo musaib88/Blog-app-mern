@@ -30,6 +30,7 @@ router.put("/update",verifyToken,async(req,res)=>{
 })
 // delete
 router.delete("/delete",verifyToken,async( req,res)=>{
+  console.log('in dlete')
   try {
     await User.findByIdAndDelete(req.userId)
   res.json("deleted successfully")

@@ -30,7 +30,7 @@ export default function Register() {
 
       
     } catch (error) {
-      console.log("unsuccessful")
+      console.log(error)
       
     }
 

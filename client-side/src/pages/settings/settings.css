@@ -8,7 +8,12 @@
     margin-left:5vw;
     
 }
+#username-settings{
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 
+}
 
 #setting-name-update{
     display: flex;
@@ -22,7 +27,7 @@
     color: rgb(241, 42, 42);
 
 }
-#setting-name-update > button{
+#setting-name-update > span{
     color:white;
     background-color: rgb(247, 89, 89);
 
@@ -87,4 +92,18 @@
     border: none;
     border-radius: 10px;
     margin-top: 10px;
+}
+.toogle-pass{
+    position: absolute;
+    left: 72%;
+    bottom:30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: whitesmoke;
+    background-color: rgb(215, 39, 39);
+    border-radius: 10px;
+    padding: 7px;
+    width: 60px;
+    text-align: center;
+    
 }

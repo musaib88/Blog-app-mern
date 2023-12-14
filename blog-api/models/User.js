@@ -16,7 +16,7 @@ const UserSchema= new mongoose.Schema({
     },
     profilePic:{
         type:String,
-        default:""
+        default:"http://localhost:5000/images/profile-icon-png-910.png"
     },
 },
 {timestamps:true}

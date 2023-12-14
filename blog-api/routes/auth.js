@@ -9,6 +9,7 @@ const verifyToken = require("./jwtAccess");
 
 router.post("/register", async (req, res) => {
   console.log("working in register");
+  console.log(req.body)
   try {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
@@ -17,9 +18,12 @@ router.post("/register", async (req, res) => {
       email: req.body.email,
       password: hash,
     });
+  console.log(newUser)
+    
 
-    const userCreated = await newUser.save();
-    res.status(200).json(userCreated);
+    const userCreated = await newUser.save()
+    res.status(200).json("saved sucess");
+
     // console.log("running")
   } catch (error) {
     res.status(500).json(error);

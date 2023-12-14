@@ -1,140 +1,125 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import axios from 'axios'
-import { useDispatch,useSelector } from "react-redux";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { clearUser, setUser } from "../../redux/slices/userSlice";
-
 import "./navbar.css";
 
-
 export default function Navbar() {
-  // const [token,setToken]=useState('')
-const user=useSelector((state)=>state.user.user);
-const dispatch=useDispatch()
-console.log("my user is",user)
-  
-  useEffect(()=>{
-    const verifyToken= async()=>{
-   const savedToken = localStorage.getItem("token");
-  const baseURL = "http://localhost:5000/api/";
+  const dispatch = useDispatch();
+  const [token, setToken] = useState("");
 
+  const user = useSelector((state) => state.user.user);
+  const userObj = useSelector((state) => state.user.userData);
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    setToken(savedToken);
+  }, []);
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const baseURL = "http://localhost:5000/api/";
 
       try {
-        const res= await axios.get("/auth/verify",{headers:{
-          "Authorization": "bearer " + savedToken
-        },baseURL})
-        if(res?.data.message==='valid user'){
-          const usrname=res?.data?.user.user?.userName;
-          console.log(usrname)
-         dispatch(setUser(usrname))        
-         console.log(res.data)
-      } 
-      
-    }
-      catch (error) {
-
-        console.log("somthing went wrong in token ")
-        
+        const res = await axios.get("/user/get", {
+          headers: {
+            Authorization: "bearer " + token,
+          },
+          baseURL,
+        });
+        console.log(res.data)
+        dispatch(setUser(res.data));
+      } catch (error) {
+        console.log("Something went wrong with the token verification");
       }
-      
-    }
-    verifyToken()
-
-  })
-  
+    };
+    verifyToken();
+  }, [dispatch, token]);
 
   const [menu, setMenu] = useState(false);
+
   const showMobileMenu = () => {
     setMenu(!menu);
-    // console.log(menu)
   };
-  const userLogout=()=>{
-     dispatch(clearUser())
-     localStorage.setItem("token","")
-    
-    
-  }
-  
-  
-  
+
+  const userLogout = () => {
+    dispatch(clearUser());
+    localStorage.setItem("token", "");
+  };
 
   return (
     <>
-      <div id='nav-bar-blog-top' >
+      <div id='nav-bar-blog-top'>
         <div className='navleft'>
           <i className='icon-media fa-brands fa-instagram'></i>
           <i className='icon-media fa-brands fa-x-twitter'></i>
-          <i className=' icon-media fa-brands fa-facebook'></i>
+          <i className='icon-media fa-brands fa-facebook'></i>
         </div>
         <div className='navmid '>
           <ul className='nav-mid-list'>
             <li className='nav-mid-items'>
-              <Link
-                to='/'
-                className='link'>
+              <Link to='/' className='link'>
                 Home
               </Link>
             </li>
             <li className='nav-mid-items'>
-              <Link
-                to='/write'
-                className='link'>
+              <Link to='/write' className='link'>
                 Write
               </Link>
             </li>
             <li className='nav-mid-items'>
-              <Link
-                to='/contact'
-                className='link'>
+              <Link to='/contact' className='link'>
                 Contact
               </Link>
             </li>
             <li className='nav-mid-items'>
-              <Link
-                to='/about'
-                className='link'>
+              <Link to='/about' className='link'>
                 About
               </Link>
             </li>
-            {/* <li className='nav-mid-items'>
-              
-            </li> */}
           </ul>
         </div>
         <div className='nav-right'>
-
-        <div>
-        <Link to='/login' className="link"> { !user && <span >Login</span>}</Link>
-                <Link to='/' className="link">{ user && <span onClick={userLogout}>Logout</span>}</Link>
-
-            </div>
-
-          <Link
-            to='/settings'
-            className='link'>
-            <div>
-              {" "}
-              <img
-                src='https://picsum.photos/536/354'
-                alt=''
-                className='profile-logo'
-              />
-            </div>
-          </Link>
-
           <div>
-            <i className=' right-nav-icons fa-solid fa-magnifying-glass'></i>
+            <form action=''>
+              <input
+                type='text'
+                id='search-posts-input'
+                placeholder='Search'
+                className='search-input-nav'
+              />
+              <button type='submit' id='button-search-nav'>
+                <i className='right-nav-icons fa-solid fa-magnifying-glass'></i>
+              </button>
+            </form>
           </div>
+          <div id='login-logout-nav'>
+            <Link to='/login' className='link'>
+              {!user && <span>Login</span>}
+            </Link>
+            <Link to='/' className='link'>
+              {user && <span onClick={userLogout}>Logout</span>}
+            </Link>
+          </div>
+           {user &&
+          <Link to='/settings' className='link'>
+            <div>
+              <img src={userObj?.profilePic || "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_960_720.png"} alt='' className='profile-logo' />
+            </div>
+          </Link>}
+
           <div className='menu-mob'>
             {menu ? (
               <i
                 className='fa-solid fa-xmark right-nav-cross-icon'
-                onClick={showMobileMenu}></i>
+                onClick={showMobileMenu}
+              ></i>
             ) : (
               <i
                 className='menu-bar-mobile right-nav-icons fa-solid fa-bars'
-                onClick={showMobileMenu}></i>
+                onClick={showMobileMenu}
+              ></i>
             )}
           </div>
         </div>
@@ -142,38 +127,29 @@ console.log("my user is",user)
       <div id={menu ? "mobile-mid-nav" : "mobile-mid-nav-hide"}>
         <ul className='nav-mid-list-mobile'>
           <li className='nav-mid-items-mobile'>
-            <Link
-              to='/'
-              className='link'>
+            <Link to='/' className='link'>
               Home
             </Link>
           </li>
           <li className='nav-mid-items-mobile'>
-            <Link
-              to='/write'
-              className='link'>
+            <Link to='/write' className='link'>
               Write
             </Link>
           </li>
           <li className='nav-mid-items-mobile'>
-            <Link
-              to='/contact'
-              className='link'>
+            <Link to='/contact' className='link'>
               Contact
             </Link>
           </li>
           <li className='nav-mid-items-mobile'>
-            <Link
-              to='/about'
-              className='link'>
+            <Link to='/about' className='link'>
               About
             </Link>
           </li>
           <li className='nav-mid-items-mobile'>
             <div>
-               <span>Login</span>
-               <span>Logout</span>
-
+              <span>Login</span>
+              <span>Logout</span>
             </div>
           </li>
         </ul>

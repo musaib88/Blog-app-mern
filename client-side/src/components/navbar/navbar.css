@@ -40,7 +40,7 @@ justify-content: center;
 list-style: none;
 font-size:20px;
 font-weight: 400;
-font-family:'Josefin Sans', sans-serif; ;
+font-family:'Josefin Sans', sans-serif; 
 margin-right: 20px;
 cursor: pointer;
 }
@@ -61,7 +61,7 @@ gap: 10px;
 .right-nav-icons{
     margin-right: 10px;
 
-    font-size: 25px;
+    font-size: 20px;
     color: gray;
     cursor: pointer;
     
@@ -119,6 +119,32 @@ gap: 10px;
     cursor: pointer;
     z-index: inherit;
     
+}
+.search-input-nav{
+    width:150px;
+    line-height:25px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    /* border: none; */
+}
+#button-search-nav{
+
+    background-color: transparent;
+    border: none;
+    text-align: center;
+}
+#login-logout-nav{
+font-size:20px;
+font-weight: 400;
+font-family:'Josefin Sans', sans-serif; 
+cursor: pointer;
+margin:10px;
+
+}
+#button-search-nav{
+    margin: 5px;
 }
 @media screen  and (max-width:767px){
     .nav-mid-list{
