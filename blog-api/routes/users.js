@@ -3,44 +3,53 @@ const router=express.Router();
 const User=require('../models/User');
 const bcrypt=require('bcrypt');
 const verifyToken = require('./jwtAccess');
+const {uploadImg,deleteImg}=require('./imageUpload')
 
 
 
 
 // Update 
 
-router.put("/update",verifyToken,async(req,res)=>{
-    if(req.body.password){
-      const salt=bcrypt.genSaltSync(10)
-      const newpass=bcrypt.hashSync(req.body.password,salt)
-      // console.log(newpass);
-       req.body.password=newpass
-    }
-    try {
-       const user = await User.findByIdAndUpdate(req.userId ,{$set:req.body},{new:true});
+router.put("/update", verifyToken, uploadImg, async (req, res) => {
+  console.log("hello", req.body);
+  console.log(req.photourl)
 
-        res.status(200).json(user)
-      
-    } catch (error) {
-      res.status(400).json("wrong")
-      
-    }
-
-
-})
-// delete
-router.delete("/delete",verifyToken,async( req,res)=>{
-  console.log('in dlete')
   try {
-    await User.findByIdAndDelete(req.userId)
-  res.json("deleted successfully")
-    
+    const user = await User.findOne({ _id: req.userId });
+    if (!user) {
+      return res.status(400).json("User not found");
+    }
+
+    // Compare the provided old password with the stored hashed password
+    const isPasswordValid = bcrypt.compareSync(req.body.oldPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json("Old password doesn't match");
+    }
+
+    // Generate a new salt and hash the new password
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
+
+    const profileUrl=req.photourl?req.photourl:user.profilePic;
+
+    // Update user information in the database
+    const updatedUser = await User.findByIdAndUpdate(req.userId, {
+      email: req.body.email,
+      password: hashedPassword,
+      profilePic:profileUrl
+      // Add other fields you want to update here
+    });
+
+    if (!updatedUser) {
+      return res.status(400).json("Couldn't update user");
+    }
+
+    res.status(200).json("User updated successfully");
   } catch (error) {
-    res.status(500).json("deletion unsuccessfull",error)
-    
+    console.error(error);
+    res.status(500).json("Internal Server Error");
   }
-  
-})
+});
 // get 
 router.get("/get",verifyToken,async(req , res)=>{
   try {

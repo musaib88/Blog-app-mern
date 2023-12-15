@@ -4,9 +4,10 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-
+import { clearUser } from "../../redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 export default function Settings() {
+  const dispatch=useDispatch()
   
   const [toogle,setToogle]=useState(false)
   const token=localStorage.getItem('token')
@@ -38,6 +39,7 @@ const [oldPassword,setOldPassword]=useState('')
           }
         })
         localStorage.setItem('token',"")
+        dispatch(clearUser())
         navigate('/')
        
         
@@ -55,21 +57,34 @@ const [oldPassword,setOldPassword]=useState('')
 
   }
 
-  const handleUpdateSettings= async ()=>{
+  const handleUpdateSettings= async (e)=>{
+    e.preventDefault()
 
     if(newPassword===confirmPassword){
       const settingData=new FormData();
-      settingData.append('file',imgFile)
+      if(imgFile){
+      settingData.append('file',imgFile)}
       settingData.append('oldPassword',oldPassword)
       settingData.append('newPassword',newPassword)
       settingData.append('email',email)
+      console.log(settingData)
 
       try {
 
-        const res=axios.put('/user/update')
+        const res= await axios.put('/user/update',settingData,{baseURL:baseURL,headers:{
+          Authorization:`Bearer ${token}`
+        }
+         
+        })
+        localStorage.setItem('token',"")
+        dispatch(clearUser())
+        
+        navigate('/')
+       
         
       } catch (error) {
         setError("some error")
+        console.log(error)
         
       }
 
@@ -106,7 +121,7 @@ const [oldPassword,setOldPassword]=useState('')
     <div>
       <NavBar></NavBar>
       <div id='settings-layout'>
-        <form action='' >
+        <form  onSubmit={handleUpdateSettings} >
           <div id='setting-name-update'>
             <h1>My Account</h1>
             <span  onClick={handleDeleteAcc} > Delete Account </span>

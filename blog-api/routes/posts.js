@@ -57,7 +57,7 @@ router.put('/update/:id', verifyToken,uploadImg ,async (req, res) => {
 
 
         if (post.userName === user.userName) {
-            if (req.body.oldpicUrl) {
+            if (req.body.oldpicUrl && req.photourl) {
                 // Delete the old image
                 try {
                      deleteSingleFile(req.body.oldpicUrl);
@@ -72,8 +72,11 @@ router.put('/update/:id', verifyToken,uploadImg ,async (req, res) => {
                 // Update post properties
                 post.title = req.body.title;
                 post.desc = req.body.desc;
-                post.photo = req.photourl
-                post.catagories = req.body.catagories;
+                if(req.photourl){
+                post.photo = req.photourl}
+                if(req.body.catagories){
+
+                post.catagories = req.body.catagories;}
 
                 // Save the updated post
                 await post.save();

@@ -32,6 +32,8 @@ export default function SinglePost() {
         setUpdatedTitle(singlePost.data.title);
         setUpdatedImg(singlePost.data.photo);
         setUpdatedDesc(singlePost.data.desc);
+        setUpdatedCat(singlePost.data.catagories)
+        console.log(singlePost.data.catagories)
       } catch (error) {
         console.log(error);
       }
@@ -46,12 +48,17 @@ export default function SinglePost() {
   };
 
   const handleAddCat = () => {
-    setUpdatedCat((prevCats) => [...prevCats, newCat]);
+    console.log(updatedCat)
+   
+     
+    setUpdatedCat([...updatedCat,newCat]);
+    console.log(updatedCat)
   };
 
   const handleRemoveCat = () => {
     
-     const flitertedCat=updatedCat.slice(newCat,1)
+     const flitertedCat=updatedCat.slice(0,-1)
+
      setUpdatedCat(flitertedCat)
     
   };
@@ -84,8 +91,9 @@ export default function SinglePost() {
       console.error("Error deleting post:", error);
     }
   };
-
+ 
   const updatemyPost = async (e) => {
+
     const checkToken=localStorage.getItem('token')
     e.preventDefault();
     const updatedForm = new FormData();
@@ -131,7 +139,7 @@ export default function SinglePost() {
                 type='file'
                 accept='image/*'
                 onChange={handleUpdateImg}
-                required
+                
               />
               
               <div>

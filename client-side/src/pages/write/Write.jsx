@@ -90,12 +90,12 @@ const [image,setImage]=useState(null);
        <form  className='write-form' onSubmit={fetchPost}   >
         <div className='write-form-items'>
             <label htmlFor="write-image" className='image-label'> Upload image </label>
-         <input type="file"  id='write-image' name='file' accept='image/*'  className='file-blog-input' onChange={handImgChange } />
-         <input type="text"  placeholder='Your title ' name='title' className='title-place-write' onChange={(e)=>setTitle(e.target.value)}/>
+         <input type="file"  id='write-image' name='file' accept='image/*'  className='file-blog-input' required onChange={handImgChange } />
+         <input type="text"  placeholder='Your title ' name='title' className='title-place-write'  required onChange={(e)=>setTitle(e.target.value)}/>
          
         </div>
         <div className='write-form-items'>
-            <textarea  className='write-desc-text'  name='desc' type='text' placeholder='write your thoughts' onChange={(e)=>setDesc(e.target.value)} ></textarea>
+            <textarea  className='write-desc-text'  name='desc' type='text' placeholder='write your thoughts' required onChange={(e)=>setDesc(e.target.value)} ></textarea>
         </div>
          <button id='publish-blog' type='submit' className='publish-button'> Publish</button>
        </form>
