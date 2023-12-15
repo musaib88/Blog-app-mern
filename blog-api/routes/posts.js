@@ -37,34 +37,29 @@ router.post("/write", verifyToken,uploadImg, async (req, res) => {
   });
   
 //update
-router.put('/update/:id', verifyToken,uploadImg ,async (req, res) => {
-    console.log("in update")
-    console.log(req.body)
-       
+router.put('/update/:id', verifyToken, uploadImg, async (req, res) => {
+    console.log("in update");
+    console.log(req.body);
 
     const postId = req.params.id;
-    console.log(postId)
+    console.log(postId);
 
     try {
-
-        
-        // Use await to wait for the promises to resolve
-        
         let post = await Post.findById(postId);
-        console.log(post.userName)
+        console.log(post.userName);
         let user = await User.findById(req.userId);
-        // console.log(user.userName)
-
-
+        
         if (post.userName === user.userName) {
             if (req.body.oldpicUrl && req.photourl) {
-                // Delete the old image
                 try {
-                     deleteSingleFile(req.body.oldpicUrl);
+                    // Delete the old image
+                    await deleteSingleFile(req.body.oldpicUrl);
                     console.log("Old image deleted successfully");
                 } catch (error) {
                     console.error("Error deleting old image:", error);
                     // Handle the error if deletion fails
+                    res.status(500).json("Error deleting old image");
+                    return;
                 }
             }
 
@@ -72,26 +67,37 @@ router.put('/update/:id', verifyToken,uploadImg ,async (req, res) => {
                 // Update post properties
                 post.title = req.body.title;
                 post.desc = req.body.desc;
-                if(req.photourl){
-                post.photo = req.photourl}
-                if(req.body.catagories){
+                if (req.photourl) {
+                    post.photo = req.photourl;
+                }
 
-                post.catagories = req.body.catagories;}
+                if (req.body.catagories) {
+                    const catagoriesString = req.body.catagories.trim(); // Remove leading/trailing spaces
+                    if (catagoriesString !== "") {
+                        post.catagories = catagoriesString.split(",");
+                    } else {
+                        // Handle the case where catagoriesString is an empty string
+                        post.catagories = []; // Set catagories to an empty array or handle it differently
+                    }
+                }
 
                 // Save the updated post
                 await post.save();
 
                 res.json("Post updated successfully");
             } catch (error) {
-                res.status(400).json("Post update unsuccessful");
+                console.error("Error updating post:", error);
+                res.status(500).json("Error updating post");
             }
         } else {
-            res.status(400).json("Unauthorized - ");
+            res.status(403).json("Unauthorized");
         }
     } catch (error) {
-        res.status(400).json("Post not found");
+        console.error("Error finding post:", error);
+        res.status(404).json("Post not found");
     }
 });
+
 // delete
 
 

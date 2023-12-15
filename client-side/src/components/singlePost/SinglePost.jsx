@@ -101,6 +101,7 @@ export default function SinglePost() {
     updatedForm.append("desc", updatedDesc);
     updatedForm.append("file", updatedImg);
     updatedForm.append("catagories", updatedCat);
+    console.log(updatedCat)
     updatedForm.append("oldpicUrl", myPost.photo);
 
     console.log("FormData:", updatedForm);
