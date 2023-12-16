@@ -248,7 +248,7 @@ export default function SinglePost() {
           <div id='single-post-desc-layout'>
             <span id='single-post-desc-author'>
               Author:{" "}
-              <Link to={`/?user=${myPost.userName}`}>{myPost.userName} </Link>
+              <Link to={`/?user=${myPost.userName}`} className="link">{myPost.userName} </Link>
             </span>
             <p id='single-post-para-desc'>{myPost.desc}</p>
           </div>

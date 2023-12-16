@@ -84,6 +84,7 @@ textarea:focus{
     text-align: center;
     height: 600px;
     border: none;
+    resize: none;
 }
 .write-form{
     position: relative;
