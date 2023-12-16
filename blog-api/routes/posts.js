@@ -141,7 +141,7 @@ router.get("/get/:id",async(req,res)=>{
 })
 // get all
 router.get("/find",async (req,res)=>{
-    const {user,catagory}=req.query;
+    const {user,catagory,search}=req.query;
     try {
         let posts= await Post.find();
         if(user){
@@ -154,6 +154,17 @@ router.get("/find",async (req,res)=>{
                 
             }
             
+        }
+
+        else if (search) {
+            try {
+                const filteredPosts = posts.filter(post => post.userName === search || post.catagories.includes(search));
+                res.status(200).json(filteredPosts);
+            } catch (error) {
+                console.log(error);
+                // Handle the error and send an appropriate response
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
         }
         else if (catagory){
             try {

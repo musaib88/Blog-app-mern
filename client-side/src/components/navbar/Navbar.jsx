@@ -4,10 +4,13 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser, setUser } from "../../redux/slices/userSlice";
 import "./navbar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const [token, setToken] = useState("");
+  const [searchQuery,setSearchQuery]=useState("");
+  const navigate=useNavigate()
 
   const user = useSelector((state) => state.user.user);
   const userObj = useSelector((state) => state.user.userData);
@@ -36,6 +39,12 @@ export default function Navbar() {
     };
     verifyToken();
   }, [dispatch, token]);
+
+ const  handleSearch=(e)=>{
+     e.preventDefault()
+    navigate(`/?search=${searchQuery}`)
+    
+  }
 
   const [menu, setMenu] = useState(false);
 
@@ -88,8 +97,9 @@ export default function Navbar() {
                 id='search-posts-input'
                 placeholder='Search'
                 className='search-input-nav'
+                onChange={(e)=>setSearchQuery(e.target.value)}
               />
-              <button type='submit' id='button-search-nav'>
+              <button type='submit' id='button-search-nav' onClick={handleSearch} >
                 <i className='right-nav-icons fa-solid fa-magnifying-glass'></i>
               </button>
             </form>
