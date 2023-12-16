@@ -250,7 +250,7 @@ export default function SinglePost() {
               Author:{" "}
               <Link to={`/?user=${myPost.userName}`} className="link">{myPost.userName} </Link>
             </span>
-            <p id='single-post-para-desc'>{myPost.desc}</p>
+            <p id='single-post-para-desc' style={{whiteSpace:'pre-line'}}>{myPost.desc}</p>
           </div>
         </div>
       )}

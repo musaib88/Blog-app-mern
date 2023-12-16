@@ -68,6 +68,7 @@ font-weight: 600;}
     font-size: 23px;
     font-weight: 300;
   font-family: 'Varela', 'lora';
+  white-space-collapse:'break-spaces';
 }
 .edit-blog{
     font-size: 20px;
