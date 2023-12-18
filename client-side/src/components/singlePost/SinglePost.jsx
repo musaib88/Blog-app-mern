@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import "./singlepost.css";
+import Alert from "../alert/Alert";
 
 
 const baseURL = "http://localhost:5000/api/";
 const token = localStorage.getItem("token");
 export default function SinglePost() {
+  const [deleteSuccess, setDeleteSuccess] = React.useState(true);
+
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.userData);
@@ -85,8 +88,14 @@ export default function SinglePost() {
         },
       });
 
-      alert("Post deleted successfully");
+      setDeleteSuccess(true)
+       setTimeout(() => {
+
       navigate("/");
+          
+      }, 3000);
+
+      
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -114,7 +123,7 @@ export default function SinglePost() {
             }
         });
 
-        // console.log("Response:", res.data);
+        console.log("Response:", res.data);
         
         setUpdatePost(false)
     } catch (error) {
@@ -124,7 +133,10 @@ export default function SinglePost() {
 };
 
   return (
+
     <div id='single-post'>
+      {deleteSuccess && <Alert  message={"Deleted sucessfully"} />}
+
       {updatePost ? (
         <div id='update-form-layout'>
           <form

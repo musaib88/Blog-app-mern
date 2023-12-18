@@ -94,9 +94,8 @@
     margin-top: 10px;
 }
 .toogle-pass{
-    position: absolute;
+    position: relative;
     left: 72%;
-    bottom:30px;
     font-size: 16px;
     font-weight: 500;
     color: whitesmoke;
@@ -106,4 +105,24 @@
     width: 60px;
     text-align: center;
     
+}
+@media only screen and (min-width:320px) and (max-width:520px) {
+    #settings-layout{
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }   
+    #setting-name-update{
+        padding: 0 3%;
+    }
+    #setting-profile-img{
+        margin: auto;
+    }
+    #account-details{
+        margin: auto;
+        margin-top: 10%;
+    }
+    .toogle-pass{
+        left: 80%;
+    }
 }

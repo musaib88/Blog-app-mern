@@ -158,8 +158,12 @@ export default function Navbar() {
           </li>
           <li className='nav-mid-items-mobile'>
             <div>
-              <span>Login</span>
-              <span>Logout</span>
+            <Link to='/login' className='link'>
+              {!user && <span>Login</span>}
+            </Link>
+            <Link to='/' className='link'>
+              {user && <span onClick={userLogout}>Logout</span>}
+            </Link>
             </div>
           </li>
         </ul>

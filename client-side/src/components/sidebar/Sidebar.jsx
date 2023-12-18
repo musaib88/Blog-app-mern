@@ -10,7 +10,7 @@ export default function Sidebar() {
      useEffect(()=>{
           const fetchCats=async()=>{
             try {
-            const response=await axios.get('/catagory/find',{baseURL})
+            const response=await axios.get('/post/find/catagories',{baseURL})
             setCats(response.data)
             // console.log(cats)
               
@@ -20,7 +20,7 @@ export default function Sidebar() {
             }
           }
           fetchCats()
-     },[cats])
+     },[])
   return (
     <div id='sidebar'>
       <div className="side-bar-item">

@@ -46,7 +46,7 @@ export default function Home() {
            response=await axios.get("/post/find?catagory="+ qr,{baseURL})
             
           }
-          else if(usr=="search"){
+          else if(usr==="search"){
 
            response=await axios.get("/post/find?search="+ qr,{baseURL})
 

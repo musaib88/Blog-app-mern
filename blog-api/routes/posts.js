@@ -188,5 +188,30 @@ router.get("/find",async (req,res)=>{
         
     }
   })
+//   find cats
+  router.get('/find/catagories',async(req,res)=>{
+    console.log("in catsss")
+    try {
+     const posts=await Post.find();
+        let cats=new Set();
+         posts.map((post)=>{
+            let Arr=post.catagories;
+            Arr.forEach((Element)=>{
+               cats.add(Element) 
+            })
+
+
+         })
+
+         const uniqueCategories = Array.from(cats);
+
+      res.status(200).json(uniqueCategories)
+
+
+    } catch (error) {
+        res.status(400).json("somthing wrong")
+        
+    }
+  })
 
 module.exports=router;

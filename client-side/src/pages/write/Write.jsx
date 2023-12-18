@@ -2,7 +2,7 @@ import './write.css';
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from 'react';
 import axios from 'axios';
-import { Link,useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 
@@ -12,7 +12,7 @@ const navigate=useNavigate()
 const [upFile,setUpFile]=useState({})
 const [title,setTitle]=useState("")
 const [desc,setDesc]=useState("")
-const [postData,setPostData]=useState({})
+// const [postData,setPostData]=useState({})
 
 
  
@@ -38,9 +38,9 @@ const [postData,setPostData]=useState({})
         
       } })
       if(newPost.status===200){
-      setPostData(newPost)
-      console.log(newPost)
-      console.log(newPost?.data._id)
+      // setPostData(newPost)
+      // console.log(newPost)
+      // console.log(newPost?.data._id)
       navigate('/post/'+newPost?.data._id)
       
     }

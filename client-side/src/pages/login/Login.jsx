@@ -10,7 +10,7 @@ import {setUser,clearUser} from '../../redux/slices/userSlice'
 export default function Login() {
   const baseURL = "http://localhost:5000/api/";
   const dispatch=useDispatch()
-   const user=useSelector((state)=>state.user.user);
+  //  const user=useSelector((state)=>state.user.user);
   
    const navigate=useNavigate()
   const [toggle, setToggle] = useState(false);

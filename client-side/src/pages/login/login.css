@@ -41,7 +41,7 @@
 #show-pass{
     /* border:  solid 1px red; */
     position: absolute;
-    left: 80%;
+    left: 85%;
     bottom: 150%;
     padding: 15px;
     
@@ -90,4 +90,30 @@
     padding:15px;
     border: none;
     outline:none;
+}
+
+@media only screen and (min-width:320px) and (max-width:520px){
+    .login-form-layout-div{
+        width: 80%;
+    }
+    #login-button{
+        position: absolute;
+        left: 67%;
+    }
+    #login-logout-nav{
+        display: none;
+    }
+}
+
+@media only screen and (min-width:521px) and (max-width:750px){
+    .login-form-layout-div{
+        width: 50%;
+    }
+    #login-button{
+        position: absolute;
+        left: 76%;
+    }
+    #login-logout-nav{
+        display: none;
+    }
 }

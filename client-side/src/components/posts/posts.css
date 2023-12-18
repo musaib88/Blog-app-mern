@@ -5,6 +5,26 @@
     flex-wrap: wrap;
   
 }
+#no-posts-warning{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+#no-posts-warning>span{
+    padding: 30px;
+    font-size: 23px;
+    font-weight: 600;
+    color: white;
+    background-color: black;
+    margin-top: 30px;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    
+
+}
 @media screen  and (max-width:767px){
     
     #posts-layout{
