@@ -10,7 +10,8 @@ import Alert from "../alert/Alert";
 const baseURL = "http://localhost:5000/api/";
 const token = localStorage.getItem("token");
 export default function SinglePost() {
-  const [deleteSuccess, setDeleteSuccess] = React.useState(true);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [deleteCheck,setDeleteCheck]=useState(false)
 
 
   const navigate = useNavigate();
@@ -65,6 +66,9 @@ export default function SinglePost() {
      setUpdatedCat(flitertedCat)
     
   };
+  const handleDeleteCheck=()=>{
+    setDeleteCheck(!deleteCheck)
+  }
 
   const handleUpdateImg = (e) => {
     const file = e.target.files[0];
@@ -87,7 +91,7 @@ export default function SinglePost() {
           Authorization: `Bearer ${token}`,
         },
       });
-
+       setDeleteCheck(!deleteCheck)
       setDeleteSuccess(true)
        setTimeout(() => {
 
@@ -135,7 +139,7 @@ export default function SinglePost() {
   return (
 
     <div id='single-post'>
-      {deleteSuccess && <Alert  message={"Deleted sucessfully"} />}
+      { deleteSuccess && <Alert  message={"Deleted sucessfully........."} />}
 
       {updatePost ? (
         <div id='update-form-layout'>
@@ -247,15 +251,26 @@ export default function SinglePost() {
                   <i
                     className='fa-solid fa-pen-to-square edit-blog'
                     onClick={() => setUpdatePost(true)}></i>
+
+                      
                   <i
                     className='fa-solid fa-trash delete-blog'
-                    onClick={deletePost}></i>
+                    onClick={handleDeleteCheck}></i>
                 </div>
               ) : (
                 ""
               )}
             </div>
+            { deleteCheck && <div id="delete-check-permission">
+               <p>Are you sure you want to delete??</p>
+              <span  onClick={deletePost}>Yes</span>
+              <span onClick={handleDeleteCheck}>No</span>
+
+
+            </div>}
           </div>
+
+           
 
           <div id='single-post-desc-layout'>
             <span id='single-post-desc-author'>

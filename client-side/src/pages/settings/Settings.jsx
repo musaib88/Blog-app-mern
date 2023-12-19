@@ -159,13 +159,14 @@ const [oldPassword,setOldPassword]=useState('')
               className="input-settings"
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
+              required
 
             />
             
             <label
             htmlFor='password-settings'
             className='labels-settings'>
-             Enter your old password
+             Enter your old password*
           </label>
 
           <input
@@ -174,6 +175,7 @@ const [oldPassword,setOldPassword]=useState('')
             placeholder='Enter your old  password'
             className="input-settings"
             onChange={(e)=>setOldPassword(e.target.value)}
+            required
             
 
           />  
@@ -181,7 +183,7 @@ const [oldPassword,setOldPassword]=useState('')
             <label
             htmlFor='password-settings'
             className='labels-settings'>
-             Enter your  new password
+             Enter your  new password*
           </label>
 
           <input
@@ -190,6 +192,7 @@ const [oldPassword,setOldPassword]=useState('')
             placeholder='Enter your old  password'
             className="input-settings"
             onChange={(e)=>setNewPassword(e.target.value)}
+            required
 
             
 
@@ -197,7 +200,7 @@ const [oldPassword,setOldPassword]=useState('')
             <label
               htmlFor='password-settings'
               className='labels-settings'>
-              confirm your new password
+              confirm your new password*
             </label>
             <div style={{position:'relative'}}>
                <span className="toogle-pass" onClick={handelToggel}>{toogle?"hide":"show" }</span></div>
@@ -209,6 +212,7 @@ const [oldPassword,setOldPassword]=useState('')
               placeholder='Enter your  new password'
               className="input-settings"
             onChange={(e)=>setConfirmPassword(e.target.value)}
+            required
 
 
             />

@@ -6,9 +6,11 @@
   
 }
 #no-posts-warning{
+    position: absolute;
     width: 100%;
     display: flex;
     justify-content: center;
+    top: 30%;
     
 }
 #no-posts-warning>span{

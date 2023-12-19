@@ -71,12 +71,12 @@ font-weight: 600;}
   white-space-collapse:'break-spaces';
 }
 .edit-blog{
-    font-size: 20px;
+    font-size: 25px;
     color: skyblue;
     margin-right: 20px;
 }
 .delete-blog{
-    font-size: 20px;
+    font-size: 25px;
     color: lightcoral;
 }
 #updated-form{
@@ -181,6 +181,32 @@ font-weight: 600;}
 }
 #title-desc-container{
     margin-top: 120px;
+}
+#delete-check-permission{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+
+    position: fixed;
+    font-size: larger;
+    top: 30%;
+    background-color:green;
+    color: aliceblue;
+    padding: 20px;
+    width: 50%;
+    border-radius:10px;
+    font-weight: 600;
+}
+#delete-check-permission p{
+    margin-right: 50px;
+}
+#delete-check-permission span{
+  padding: 10px;
+  margin: 20px;
+  background-color: red;
+  border-radius: 10px;
+    
 }
 @media screen and (max-width:767px) {
     #single-post-title{

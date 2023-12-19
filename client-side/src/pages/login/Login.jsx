@@ -6,12 +6,14 @@ import { useState } from "react";
 import axios from "axios";
 import {useDispatch,useSelector} from 'react-redux'
 import {setUser,clearUser} from '../../redux/slices/userSlice'
+import Alert from "../../components/alert/Alert";
 
 export default function Login() {
   const baseURL = "http://localhost:5000/api/";
   const dispatch=useDispatch()
   //  const user=useSelector((state)=>state.user.user);
-  
+  const [error,seterror]=useState(false)
+  const [errMessage,setErrMessage]=useState(null)
    const navigate=useNavigate()
   const [toggle, setToggle] = useState(false);
   const [loginForm, setLoginForm] = useState({});
@@ -32,13 +34,24 @@ export default function Login() {
       dispatch(setUser())
       navigate('/')
       
-    } catch (error) {
-      dispatch(clearUser())
+    } catch (error) { 
 
+       if(error.response.status===401 || 500){
+
+         setErrMessage(error.response.data)
+         seterror(true)
+          setTimeout(()=>{
+            seterror(false)
+            setErrMessage(null)
+          },5000)
+       }
+      
       console.log("somthing went wrong",error);
+      console.log(error.response.data)
+
     }
   };
-
+    
   const onToggle = () => {
     setToggle(!toggle);
   };
@@ -46,6 +59,7 @@ export default function Login() {
     <div id='login-page'>
       <Navbar></Navbar>
       <div id='login-layout'>
+        { error && <Alert message={errMessage}></Alert>}
         <button id='login-button'>
           {" "}
           <Link
@@ -77,6 +91,7 @@ export default function Login() {
               id='userName-login-input'
               name='userName'
               className='inputs-form-login'
+              required
             />
             <label
               htmlFor='password-login-input'
@@ -90,6 +105,7 @@ export default function Login() {
               id='password-login-input'
               name='password'
               className='inputs-form-login'
+              required
 
             />
             <div style={{ position: "relative" }}>

@@ -12,7 +12,7 @@ export default function Sidebar() {
             try {
             const response=await axios.get('/post/find/catagories',{baseURL})
             setCats(response.data)
-            // console.log(cats)
+             console.log(cats)
               
             } catch (error) {
               console.log(error)
@@ -33,14 +33,14 @@ export default function Sidebar() {
       <div className="side-bar-item">
         <span> Catagories </span>
         
-         <ul id="catagory-list-sidebar">
+         <div id="catagory-list-sidebar">
           { cats.map((cat)=>(
-         <li className="catagory-item-list"><Link to={`/?catagory=${cat.catagoryName}`} className="link"> {cat.catagoryName}</Link></li>
+         <div className="catagory-item-list" key={cat} ><Link to={`/?catagory=${cat}`} className="link"> {cat}</Link></div>
           
           ))}
           
 
-         </ul>
+         </div>
       </div>
       <div className="side-bar-item">
         <span> Follow Us</span>

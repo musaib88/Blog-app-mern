@@ -41,12 +41,12 @@ router.post("/login", async (req, res) => {
   console.log("hello")
 
     if (!user) {
-      return res.status(400).json("Invalid username or Password");
+      return res.status(401).json("Invalid username ");
     }
     const pass = bcrypt.compareSync(req.body.password, user.password);
     // console.log(pass)
     if (!pass) {
-      return res.status(500).json("Invalid username or Password");
+      return res.status(401).json("Invalid Password");
     }
 
     // Generate a JWT
@@ -54,8 +54,9 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
     res.status(200).json({ token });
-  } catch (error) {
-    res.status(500).json(error);
+  } 
+  catch (error) {
+    res.status(500).json("Somthing wrong with server");
   }
 });
 
