@@ -139,7 +139,7 @@ export default function SinglePost() {
   return (
 
     <div id='single-post'>
-      { deleteSuccess && <Alert  message={"Deleted sucessfully........."} />}
+      { deleteSuccess && <Alert  message={"Deleted sucessfully.."} />}
 
       {updatePost ? (
         <div id='update-form-layout'>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./sidebar.css";
 import axios from "axios"
 import { Link } from "react-router-dom";
+import ContacUs from "../contact/ContacUs";
 const baseURL = "http://localhost:5000/api/";
 
 
@@ -20,11 +21,11 @@ export default function Sidebar() {
             }
           }
           fetchCats()
-     },[])
+     },[cats])
   return (
     <div id='sidebar'>
       <div className="side-bar-item">
-        <span>About me </span>
+        <span>About Us </span>
         <div>
         <img src="https://picsum.photos/536/354" alt="" /> 
         </div>
@@ -53,7 +54,7 @@ export default function Sidebar() {
       <i className=" icon-media-sidebar  fa-brands fa-facebook"></i>
       </div>
 
-        
+        <ContacUs></ContacUs>
       </div>
 
     </div>

@@ -10,7 +10,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const [token, setToken] = useState("");
   const [searchQuery,setSearchQuery]=useState("");
-  const navigate=useNavigate()
+  const navigate=useNavigate();
+  const [scrollY,setScrollY]=useState(0)
 
   const user = useSelector((state) => state.user.user);
   const userObj = useSelector((state) => state.user.userData);
@@ -18,6 +19,15 @@ export default function Navbar() {
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
     setToken(savedToken);
+    const handleBlur=()=>{
+      setScrollY(window.scrollY)
+
+
+    }
+
+    window.addEventListener("scroll",handleBlur)
+
+
   }, []);
 
   useEffect(() => {
@@ -59,7 +69,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div id='nav-bar-blog-top'>
+      <div id='nav-bar-blog-top' onScroll={()=>console.log('blur')}>
         <div className='navleft'>
           <i className='icon-media fa-brands fa-instagram'></i>
           <i className='icon-media fa-brands fa-x-twitter'></i>

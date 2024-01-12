@@ -208,6 +208,10 @@ font-weight: 600;}
   border-radius: 10px;
     
 }
+#delete-check-permission span:hover{
+ color: black;
+ cursor: pointer;
+}
 @media screen and (max-width:767px) {
     #single-post-title{
         font-size: 19px;
