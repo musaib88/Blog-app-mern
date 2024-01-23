@@ -32,7 +32,7 @@
 .catagory-item-list{
   font-family: 'Varela', sans-serif;
   font-weight: 400;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
   /* border: 1px solid red; */
 
   
@@ -70,17 +70,24 @@
   object-fit: cover;
 }
 .side-bar-item > p{
- align-items: center;
- justify-content: center;
+  display: flex;
  margin: 20px;
+ text-align:center;
+ 
  padding: 10px;
  font-size: 16px;
  font-weight: 300;
- font-family:'Varela', sans-serif; ;
+ font-family:'Times New Roman', Times, serif;
+ line-height:30px;
+ 
+
 }
 .icon-media-sidebar{
   font-size: 30px;
   margin: 30px;
+  margin-top:30px;
+  margin-bottom:30px;
+
 }
 #icon-list-sidebar{
   display: flex;

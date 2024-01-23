@@ -18,6 +18,11 @@ router.post("/write", verifyToken,uploadImg, async (req, res) => {
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
+      console.log(req.body.catagories)
+      let selectedcats=[]
+      selectedcats=req.body.catagories.split(",")
+      console.log(selectedcats)
+
   
       // Create a new Post using the request body and user information
       const post = await new Post({
@@ -25,6 +30,7 @@ router.post("/write", verifyToken,uploadImg, async (req, res) => {
         desc: req.body.desc,
         userName: user.userName,
         photo: req.photourl,
+        catagories:selectedcats
       }).save();
   
       console.log("Post created successfully", post);

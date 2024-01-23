@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
+import Select from 'react-select'
 
 
 
@@ -12,6 +13,7 @@ const navigate=useNavigate()
 const [upFile,setUpFile]=useState({})
 const [title,setTitle]=useState("")
 const [desc,setDesc]=useState("")
+const [selectedCatagories,setSelectedCatagories]=useState([])
 // const [postData,setPostData]=useState({})
 
 
@@ -25,6 +27,13 @@ const [desc,setDesc]=useState("")
     formData.append("title",title)
     formData.append("desc",desc)
     formData.append("file",upFile)
+    let selectedcat=[]
+    selectedCatagories.map(cat=>{
+      selectedcat.push(cat.value)
+    })
+    formData.append("catagories",selectedcat)
+    console.log(selectedcat)
+
     console.log(formData)
     try {
       const token=localStorage.getItem("token")
@@ -60,7 +69,11 @@ const [desc,setDesc]=useState("")
 
 
 
+  const handleCategoryChange = (selectedValues) => {
+    setSelectedCatagories(selectedValues)
 
+   
+  };
 
 
 
@@ -80,6 +93,27 @@ const [image,setImage]=useState(null);
     setImage(null);
   }
 };
+
+
+const categories = [
+  'Technology',
+  'Travel',
+  'Food',
+  'Health',
+  'Fitness',
+  'Lifestyle',
+  'Science',
+  'Business ',' Finance',
+  'Education',
+  'Arts ',' Culture',
+  'Sports',
+  'Parenting',
+  'Science ',' Fantasy',
+  'Social-Media',
+  'Crafts',
+  'Photography'
+];
+
     
   return (
     
@@ -92,11 +126,24 @@ const [image,setImage]=useState(null);
             <label htmlFor="write-image" className='image-label'> Upload image </label>
          <input type="file"  id='write-image' name='file' accept='image/*'  className='file-blog-input' required onChange={handImgChange } />
          <input type="text"  placeholder='Your title ' name='title' className='title-place-write'  required onChange={(e)=>setTitle(e.target.value)}/>
-         
+        </div>
+        <div id='catagory-options-write'>
+           <Select
+           id='catagory-options-write-select'
+           isMulti
+           options={categories.map((cat)=>({value:cat,label:cat}))}
+           placeholder="Select up to 3 categories..."
+           onChange={handleCategoryChange}
+           
+           />
+
+           
         </div>
         <div className='write-form-items'>
             <textarea  className='write-desc-text'  name='desc' type='text' placeholder='write your thoughts' required onChange={(e)=>setDesc(e.target.value)} ></textarea>
         </div>
+         
+        
          <button id='publish-blog' type='submit' className='publish-button'> Publish</button>
        </form>
        </div>

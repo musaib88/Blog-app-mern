@@ -10,6 +10,7 @@ import Single from "./pages/Single/Single";
 import Settings from "./pages/settings/Settings";
 import Write from "./pages/write/Write";
 import { useSelector} from "react-redux/es/hooks/useSelector";
+import Footer from "./components/footer/Footer";
 
 function App() {
   
@@ -46,7 +47,9 @@ const user=useSelector((state)=>state.user.user)
             element={user?<Write />:<Login/>}
           />
         </Routes>
+        
       </BrowserRouter>
+      <Footer></Footer>
     </>
   );
 }

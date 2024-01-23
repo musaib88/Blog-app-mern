@@ -68,6 +68,7 @@ export default function Home() {
   return (
     <>
     <Navbar ></Navbar>
+    
     <Header></Header>
     <div id='feed'>
       <Posts posts={posts}></Posts >

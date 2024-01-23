@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation,  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import "./singlepost.css";
 import Alert from "../alert/Alert";
+import Select from "react-select";
 
-
-const baseURL = "http://localhost:5000/api/";
-const token = localStorage.getItem("token");
 export default function SinglePost() {
+  const baseURL = "http://localhost:5000/api/";
+  const token = localStorage.getItem("token");
   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  const [deleteCheck,setDeleteCheck]=useState(false)
-
+  const [deleteCheck, setDeleteCheck] = useState(false);
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.userData);
-     console.log(`hello${user.userName}`)
+  console.log(`hello${user.userName}`);
   const location = useLocation();
   const [myPost, setMyPost] = useState({});
   const path = location.pathname.slice(6);
@@ -24,9 +23,12 @@ export default function SinglePost() {
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedImg, setUpdatedImg] = useState("");
   const [updatedDesc, setUpdatedDesc] = useState("");
-  const [newCat, setNewCat] = useState("");
   const [viewImg, setViewImg] = useState("");
-  const [updatedCat, setUpdatedCat] = useState([]);
+  const [updatedCatagories, setUpdatedCatagories] = useState([]);
+
+  const handleDeleteCheck = () => {
+    setDeleteCheck(!deleteCheck);
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -36,39 +38,44 @@ export default function SinglePost() {
         setUpdatedTitle(singlePost.data.title);
         setUpdatedImg(singlePost.data.photo);
         setUpdatedDesc(singlePost.data.desc);
-        setUpdatedCat(singlePost.data.catagories)
-        console.log(singlePost.data.catagories)
+        setUpdatedCatagories(singlePost.data.catagories);
       } catch (error) {
         console.log(error);
       }
     };
     fetchPost();
-  }, [path,updatePost]);
+  }, [path, updatePost]);
 
-  
+  const categories_list = [
+    "Technology",
+    "Travel",
+    "Food",
+    "Health",
+    "Fitness",
+    "Lifestyle",
+    "Science",
+    "Business ",
+    " Finance",
+    "Education",
+    "Arts ",
+    " Culture",
+    "Sports",
+    "Entertainment",
+    "Science ",
+    "Social-Media",
+    "Photography",
+    "Politics",
+  ];
 
-  const handleCatvalue = (e) => {
-    setNewCat(e.target.value);
+  const handleCategoryChange = (selectedValues) => {
+    let updatedcatss = [];
+    selectedValues.map((cat) => {
+      updatedcatss.push(cat.value);
+
+      return null;
+    });
+    setUpdatedCatagories(updatedcatss)
   };
-
-  const handleAddCat = () => {
-    console.log(updatedCat)
-   
-     
-    setUpdatedCat([...updatedCat,newCat]);
-    console.log(updatedCat)
-  };
-
-  const handleRemoveCat = () => {
-    
-     const flitertedCat=updatedCat.slice(0,-1)
-
-     setUpdatedCat(flitertedCat)
-    
-  };
-  const handleDeleteCheck=()=>{
-    setDeleteCheck(!deleteCheck)
-  }
 
   const handleUpdateImg = (e) => {
     const file = e.target.files[0];
@@ -91,55 +98,45 @@ export default function SinglePost() {
           Authorization: `Bearer ${token}`,
         },
       });
-       setDeleteCheck(!deleteCheck)
-      setDeleteSuccess(true)
-       setTimeout(() => {
-
-      navigate("/");
-          
+      setDeleteCheck(!deleteCheck);
+      setDeleteSuccess(true);
+      setTimeout(() => {
+        navigate("/");
       }, 3000);
-
-      
     } catch (error) {
       console.error("Error deleting post:", error);
     }
   };
- 
-  const updatemyPost = async (e) => {
 
-    const checkToken=localStorage.getItem('token')
+  const updatemyPost = async (e) => {
+    const checkToken = localStorage.getItem("token");
     e.preventDefault();
     const updatedForm = new FormData();
     updatedForm.append("title", updatedTitle);
     updatedForm.append("desc", updatedDesc);
     updatedForm.append("file", updatedImg);
-    updatedForm.append("catagories", updatedCat);
-    console.log(updatedCat)
+    updatedForm.append("catagories",updatedCatagories)
     updatedForm.append("oldpicUrl", myPost.photo);
 
-    console.log("FormData:", updatedForm);
-
     try {
-        const res = await axios.put(`/post/update/${myPost._id}`, updatedForm, {
-            baseURL: baseURL,
-            headers: {
-                Authorization: `Bearer ${checkToken}`
-            }
-        });
+      const res = await axios.put(`/post/update/${myPost._id}`, updatedForm, {
+        baseURL: baseURL,
+        headers: {
+          Authorization: `Bearer ${checkToken}`,
+        },
+      });
 
-        console.log("Response:", res.data);
-        
-        setUpdatePost(false)
+      console.log("Response:", res.data);
+      setUpdatePost(false);
     } catch (error) {
-        console.error("Error updating post:", error);
-        alert("Post not updated");
+      console.error("Error updating post:", error);
+      alert("Post not updated");
     }
-};
+  };
 
   return (
-
     <div id='single-post'>
-      { deleteSuccess && <Alert  message={"Deleted sucessfully.."} />}
+      {deleteSuccess && <Alert message={"Deleted successfully.."} />}
 
       {updatePost ? (
         <div id='update-form-layout'>
@@ -156,61 +153,61 @@ export default function SinglePost() {
                 type='file'
                 accept='image/*'
                 onChange={handleUpdateImg}
-                
               />
-              
+              <div style={{ marginTop: "20px" }}>
+                {updatedCatagories.map((cat)=>{
+                  return (
+                    <span className="updated-cats-view-spans"
+                    key={cat}
+                    >
+
+                      {cat}
+                    </span>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div id='title-desc-container'>
+              <label
+                htmlFor='updated-title-input-id'
+                className='label-updated'>
+                Your Title
+              </label>
+              <div id='update-title'>
+                <input
+                  type='text'
+                  value={updatedTitle}
+                  id='updated-title-input-id'
+                  onChange={(e) => setUpdatedTitle(e.target.value)}
+                  className='update-input-title'
+                />
+              </div>
+              <Select
+                id='catagory-options-write-select'
+                isMulti
+                options={categories_list.map((cat) => ({
+                  value: cat,
+                  label: cat,
+                }))}
+                placeholder='Select up to 3 categories...'
+                onChange={handleCategoryChange}
+              />
+
+              <label
+                htmlFor='updated-post-input'
+                className='label-updated'>
+                Your Post
+              </label>
               <div>
-              <div id='catagories-updated'>
-                
-                { updatedCat.map((category) =>
-                 (
-                  <span
-                    className='category-post-up12'
-                    key={category}
-                   >
-                    {category}
-                  </span>
-                ))}
+                <textarea
+                  name='updated-post-desc'
+                  id='updated-post-input'
+                  value={updatedDesc}
+                  onChange={(e) => {
+                    setUpdatedDesc(e.target.value);
+                  }}></textarea>
               </div>
-              <span id="btn-remove-cat" onClick={handleRemoveCat} >remove</span>
-
-              <input type="text"  placeholder="add or remove Catagory" onChange={handleCatvalue}/>
-              <span id="btn-add-cat" onClick={handleAddCat}>add</span>
-
-              </div>
-              
-
-            </div>
-             <div id="title-desc-container" >
-            <label
-              htmlFor='updated-title-input-id'
-              className='label-updated'>
-              Your Title
-            </label>
-            <div id='update-title'>
-              <input
-                type='text'
-                value={updatedTitle}
-                id='updated-title-input-id'
-                onChange={(e) => setUpdatedTitle(e.target.value)}
-                className='update-input-title'
-              />
-            </div>
-
-            <label
-              htmlFor='updated-post-input'
-              className='label-updated'>
-              Your Post
-            </label>
-            <div>
-              <textarea
-                name='updated-post-desc'
-                id='updated-post-input'
-                value={updatedDesc}
-                onChange={(e) => {
-                  setUpdatedDesc(e.target.value);
-                }}></textarea>
-            </div>
             </div>
 
             <button
@@ -235,24 +232,14 @@ export default function SinglePost() {
               />
             )}
             <div id='single-post-img-details'>
-              {myPost.catagories &&
-                myPost.catagories.map((cat) => (
-                  <span
-                    key={cat}
-                    id='single-post-category'>
-                    {cat}
-                  </span>
-                ))}
               <span id='single-post-date'>
                 created on : {myPost.createdAt?.split("T")[0]}{" "}
               </span>
-              {user.userName=== myPost.userName ? (
+              {user.userName === myPost.userName ? (
                 <div id='single-post-icons'>
                   <i
                     className='fa-solid fa-pen-to-square edit-blog'
                     onClick={() => setUpdatePost(true)}></i>
-
-                      
                   <i
                     className='fa-solid fa-trash delete-blog'
                     onClick={handleDeleteCheck}></i>
@@ -261,23 +248,34 @@ export default function SinglePost() {
                 ""
               )}
             </div>
-            { deleteCheck && <div id="delete-check-permission">
-               <p>Are you sure you want to delete??</p>
-              <span  onClick={deletePost}>Yes</span>
-              <span onClick={handleDeleteCheck}>No</span>
-
-
-            </div>}
+            {deleteCheck && (
+              <div id='delete-check-permission'>
+                <p>Are you sure you want to delete??</p>
+                <span onClick={deletePost}>Yes</span>
+                <span onClick={handleDeleteCheck}>No</span>
+              </div>
+            )}
           </div>
 
-           
-
           <div id='single-post-desc-layout'>
+
+            <div style={{textAlign:'center'}}> {updatedCatagories.map(cat=>{
+              return(
+                 <span className="updated-cats-view-spans">{cat}</span>)
+            })} </div>
             <span id='single-post-desc-author'>
-              Author:{" "}
-              <Link to={`/?user=${myPost.userName}`} className="link">{myPost.userName} </Link>
+              Author:
+              <Link
+                to={`/?user=${myPost.userName}`}
+                className='link'>
+                {myPost.userName}
+              </Link>
             </span>
-            <p id='single-post-para-desc' style={{whiteSpace:'pre-line'}}>{myPost.desc}</p>
+            <p
+              id='single-post-para-desc'
+              style={{ whiteSpace: "pre-line" }}>
+              {myPost.desc}
+            </p>
           </div>
         </div>
       )}

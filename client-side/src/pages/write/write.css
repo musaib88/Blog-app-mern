@@ -98,6 +98,18 @@ top: 95%;
 left: 75%;
 border-radius: 10px;
 }
+#catagory-options-write{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5.5rem;
+    margin-bottom: 2rem;
+    border: none;
+}
+/* #catagory-options-write-select{
+} */
+
 
 
 
